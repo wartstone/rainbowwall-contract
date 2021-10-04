@@ -2198,40 +2198,40 @@ contract RainbowWallProtocol is Ownable, ERC721URIStorage {
 
     constructor() ERC721("RainbowWall Protocol", "Rain") {}
 
-    event Paste(string content, string name, string symbol);
+    event Paste(string metadata, string name, string symbol, uint256 tokenId);
 
     function paste(
-        string memory _image,
+        string memory _metadata,
         string memory _name,
         string memory _symbol
     ) public {
-        _paste(_image, _name, _symbol);
+        _paste(_metadata, _name, _symbol);
     }
 
     //default name and symbol
-    function paste(string memory _image) public {
+    function paste(string memory _metadata) public {
         _paste(
-            _image,
+            _metadata,
             "RainbowWall Token",
             string(abi.encodePacked("RWT #", (totalSupply + 1).toString()))
         );
     }
 
     function _paste(
-        string memory _image,
+        string memory _metadata,
         string memory _name,
         string memory _symbol
     ) internal {
         totalSupply++;
-        _safeMint(msg.sender, totalSupply);
-        _setTokenURI(totalSupply, _image);
-        tokenList[totalSupply] = new RainbowWallToken(
+        uint256 tokenId = totalSupply;
+        _safeMint(msg.sender, tokenId);
+        _setTokenURI(tokenId, _metadata);
+        tokenList[tokenId] = new RainbowWallToken(
             _name,
             _symbol,
             IERC721(this),
-            totalSupply
+            tokenId
         );
-        emit Paste(_image, _name, _symbol);
+        emit Paste(_metadata, _name, _symbol, tokenId);
     }
-
 }
