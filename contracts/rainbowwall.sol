@@ -2137,7 +2137,7 @@ contract RainbowWallProtocol is Ownable, ERC721URIStorage {
 
     mapping(uint256 => RainbowWallToken) public tokenList;
 
-    constructor() ERC721("RainbowWall Protocol", "Rain") {}
+    constructor() ERC721("RainbowWall Protocol Orange", "Orange") {}
 
     event Paste(string metadata, string name, string symbol, uint256 tokenId);
 
@@ -2148,6 +2148,8 @@ contract RainbowWallProtocol is Ownable, ERC721URIStorage {
     ) public {
         _paste(_metadata, _name, _symbol);
     }
+
+
 
     //default name and symbol
     function paste(string memory _metadata) public {
